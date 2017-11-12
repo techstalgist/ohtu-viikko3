@@ -6,7 +6,9 @@ public class Course {
     private String name;
     private String term;
     private int[] exercises;
-
+    private int submissionsTotal;
+    private int exercisesTotal;
+    
     public String getName() {
         return name;
     }
@@ -29,6 +31,22 @@ public class Course {
 
     public void setExercises(int[] exercises) {
         this.exercises = exercises;
+    }
+    
+    public void incrementSubmissionsTotal(int toAdd) {
+        submissionsTotal += toAdd;
+    }
+    
+    public void incrementExercisesTotal(int toAdd) {
+        exercisesTotal += toAdd;
+    }
+    
+    public int getSubmissionsTotal() {
+        return submissionsTotal;
+    }
+    
+    public int getExercisesTotal() {
+        return exercisesTotal;
     }
     
     @Override
