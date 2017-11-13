@@ -2,3 +2,5 @@
 /HelloCucumber/build/
 Kurssistatistiikka/.nb-gradle/profiles/
 Kurssistatistiikka/.nb-gradle/private/cache/
+/LoginCucumber/.nb-gradle/
+/LoginCucumber/build/
