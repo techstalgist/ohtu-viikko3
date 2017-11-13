@@ -7,3 +7,4 @@ LoginCucumber/build/*
 LoginCucumber/.gradle/*
 *.bin
 *.lock
+/WebLogin/.nb-gradle/
