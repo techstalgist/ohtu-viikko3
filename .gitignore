@@ -5,3 +5,5 @@ Kurssistatistiikka/.nb-gradle/*
 LoginCucumber/.nb-gradle/*
 LoginCucumber/build/*
 LoginCucumber/.gradle/*
+*.bin
+*.lock
