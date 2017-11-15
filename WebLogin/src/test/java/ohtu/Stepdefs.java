@@ -21,6 +21,18 @@ public class Stepdefs {
         element.click();          
     }
     
+    @Given("^user with username \"([^\"]*)\" with password \"([^\"]*)\" is successfully created$")
+    public void user_with_username_and_password_is_created(String username, String password) throws Throwable {
+        new_user_selected();
+        valid_username_password_and_matching_confirmation_are_entered(username, password);
+    }
+    
+    @Given("^user with username \"([^\"]*)\" and password \"([^\"]*)\" is tried to be created$")
+    public void user_with_username_and_password_is_tried_to_be_created(String username, String password) throws Throwable {
+        new_user_selected();
+        too_short_username_and_valid_password_are_entered(username, password); // in this test, the password is too short as well, but that doesn't really matter here
+    }
+    
     @Given("^command new user is selected$")
     public void new_user_selected() throws Throwable {
         driver.get(baseUrl);
