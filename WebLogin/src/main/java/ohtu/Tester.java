@@ -4,13 +4,14 @@ import java.util.Random;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class Tester {
 
     public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "/Users/mikkoruuskanen/Downloads/chromedriver"); 
-        WebDriver driver = new ChromeDriver();
+     // System.setProperty("webdriver.chrome.driver", "/Users/mikkoruuskanen/Downloads/chromedriver"); 
+
+        WebDriver driver = new HtmlUnitDriver();
         
         navigateToLoginPage(driver);
         login(driver, "pekka", "akkep");

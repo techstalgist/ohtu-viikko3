@@ -6,18 +6,25 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import static org.junit.Assert.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class Stepdefs {
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver = new HtmlUnitDriver();
     String baseUrl = "http://localhost:4567";
     
     @Given("^login is selected$")
     public void login_selected() throws Throwable {
         driver.get(baseUrl);
         WebElement element = driver.findElement(By.linkText("login"));       
+        element.click();          
+    }
+    
+    @Given("^command new user is selected$")
+    public void new_user_selected() throws Throwable {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));       
         element.click();          
     } 
 
@@ -41,6 +48,31 @@ public class Stepdefs {
         logInWith(username, password);
     }
     
+    @When("^a valid username \"([^\"]*)\" and password \"([^\"]*)\" and matching password confirmation are entered$")
+    public void valid_username_password_and_matching_confirmation_are_entered(String username, String password) throws Throwable {
+        signUpWith(username, password);
+    }
+    
+    @When("^a valid username \"([^\"]*)\" and password \"([^\"]*)\" and confirmation \"([^\"]*)\" are entered$")
+    public void valid_username_password_and_matching_confirmation_are_entered(String username, String password, String confirmation) throws Throwable {
+        signUpWithConfirmation(username, password, confirmation);
+    }
+    
+    @When("^a too short username \"([^\"]*)\" and valid password \"([^\"]*)\" are entered$")
+    public void too_short_username_and_valid_password_are_entered(String username, String password) throws Throwable {
+        signUpWith(username, password);
+    }
+    
+    @When("^a valid username \"([^\"]*)\" and a too short password \"([^\"]*)\" are entered$")
+    public void valid_username_and_too_short_password_are_entered(String username, String password) throws Throwable {
+        signUpWith(username, password);
+    }
+    
+    @When("^already taken username \"([^\"]*)\" and a valid password \"([^\"]*)\" are entered$")
+    public void already_taken_username_and_valid_password_are_entered(String username, String password) throws Throwable {
+        signUpWith(username, password);
+    }
+    
     @Then("^user is logged in$")
     public void user_is_logged_in() throws Throwable {
         pageHasContent("Ohtu Application main page");
@@ -50,7 +82,17 @@ public class Stepdefs {
     public void user_is_not_logged_in_and_error_message_is_given() throws Throwable {
         pageHasContent("invalid username or password");
         pageHasContent("Give your credentials to login");
-    }     
+    }
+    
+    @Then("^a new user is created$")
+    public void user_is_created() throws Throwable {
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+    
+    @Then("^user is not created and error \"([^\"]*)\" is reported$")
+    public void user_is_not_created_and_error_is_reported(String error) throws Throwable {
+        pageHasContent(error);
+    }
     
     @After
     public void tearDown(){
@@ -71,5 +113,21 @@ public class Stepdefs {
         element.sendKeys(password);
         element = driver.findElement(By.name("login"));
         element.submit();  
-    } 
+    }
+    
+    private void signUpWith(String username, String password) {
+        signUpWithConfirmation(username, password, password);
+    }
+    
+    private void signUpWithConfirmation(String username, String password, String confirmation) {
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(confirmation);
+        element = driver.findElement(By.name("signup"));
+        element.submit();  
+    }
 }
