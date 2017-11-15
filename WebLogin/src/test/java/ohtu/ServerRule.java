@@ -19,6 +19,7 @@ public class ServerRule extends ExternalResource {
         UserDao dao = new UserDaoForTests();
         dao.add(new User("jukka", "akkuj"));
         Main.setDao(dao);
+        System.setProperty("webdriver.chrome.driver", "/Users/mikkoruuskanen/Downloads/chromedriver"); 
         Main.main(null);
     }
 
